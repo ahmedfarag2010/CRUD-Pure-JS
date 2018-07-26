@@ -1,0 +1,184 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    table {
+        border-bottom: 2px solid #000;
+        padding-bottom: 25px;
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    .newType {
+        margin-top: 15px;
+    }
+
+    .newType label {
+        display: inline-block;
+        width: 70px;
+        font-size: 18px;
+    }
+
+    .field {
+        margin-bottom: 10px;
+    }
+
+    .action {
+        margin-top: 15px;
+    }
+
+    .action button {
+        font-size: 18px;
+    }
+
+    .one-cost {
+        color: red;
+    }
+</style>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>N</th>
+                <th>Name of good</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+                <th>Edit/Delete</th>
+            </tr>
+        </thead>
+        <tbody class="tableBody">
+            <tr class="data-row">
+                <td>1</td>
+                <td>hh</td>
+                <td>44</td>
+                <td>44</td>
+                <td class="one-cost">1936</td>
+                <td><button class="edit">Edit</button><button class="delete">Delete</button></td>
+            </tr>
+            <tr class="data-row">
+                <td>2</td>
+                <td>hh</td>
+                <td>44</td>
+                <td>44</td>
+                <td class="one-cost">1936</td>
+                <td><button class="edit">Edit</button><button class="delete">Delete</button></td>
+            </tr>
+            <tr class="data-row">
+                <td>3</td>
+                <td>hh</td>
+                <td>44</td>
+                <td>44</td>
+                <td class="one-cost">1936</td>
+                <td><button class="edit">Edit</button><button class="delete">Delete</button></td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr class="total-row">
+                <td>Total cost</td>
+
+            </tr>
+        </tbody>
+    </table>
+    <div class="newType">
+        <div class="field name">
+            <label>Name</label>
+            <input id="nameField" type="text" />
+        </div>
+        <div class="field price">
+            <label>Price</label>
+            <input id="priceField" type="text" />
+        </div>
+        <div class="field quantity">
+            <label>Quantity</label>
+            <input id="quantityField" type="text" />
+        </div>
+        <div class="action">
+            <button class="add">Add</button>
+            <button class="clear">Clear</button>
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        var _name = document.getElementById('nameField'),
+            _price = document.getElementById('priceField'),
+            _quantity = document.getElementById('quantityField'),
+            _add = document.querySelector('.add'),
+            _clear = document.querySelector('.clear'),
+            _body = document.querySelector('.tableBody'),
+            _totalRow = document.querySelector('.total-row')
+            _totalBox = document.createElement('td');
+
+            _totalRow.appendChild(_totalBox)
+
+        var _oneCost = document.getElementsByClassName('one-cost')
+        var _n = 0;
+
+        _add.onclick = function () {
+            _n = _n + 1;
+            var _nameVal = _name.value
+            var _priceVal = _price.value
+            var _quantityVal = _quantity.value
+            var _cost = _priceVal * _quantityVal
+            var oneTypeDOM = `<tr class="data-row">
+                                <td>${_n}</td>
+                                <td>${_nameVal}</td>
+                                <td>${_priceVal}</td>
+                                <td>${_quantityVal}</td>
+                                <td class="one-cost">${_cost}</td>
+                                <td><button class="edit">Edit</button><button class="delete">Delete</button></td>
+                            </tr>`;
+            _body.innerHTML += oneTypeDOM;
+            function allCosts() {
+                var all=0;
+                for (var i = 0; i < _oneCost.length; i++) {
+                    var val = parseInt(_oneCost[i].innerHTML)
+                    all += val;
+                    _totalBox.innerHTML =all;
+                }
+            }
+            allCosts()
+        }
+
+        var _edit = document.getElementsByClassName('edit')
+        var _delete = document.getElementsByClassName('delete')
+        var _dataRow = document.getElementsByClassName('data-row')
+
+        
+
+        for(let x=0;x<_delete.length;x++){
+            var indexed;
+            _delete[x].onclick = function getIndexButton(){ 
+                console.log(x)
+                deleteRow(x)
+            }
+              
+        }  
+        function deleteRow(x){
+            for(let d=0;d<_dataRow.length;d++){
+                _dataRow[x].innerHTML = '';
+            } 
+        }
+        
+
+               
+    }
+
+
+
+
+</script>
+
+</html>
